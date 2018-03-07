@@ -1,11 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from django.utils.safestring import mark_safe
-
 from .models import *
 from django.utils.translation import gettext_lazy as _
-import os
-import re
 
 
 class CityFilter(admin.SimpleListFilter):
@@ -44,13 +40,21 @@ class AdminPatient(admin.ModelAdmin):
     def patient_records(self, obj):
 
         query_url_for_record_data = "/PatientLedger/patientrecord/?q=&patient_id="
-
-        links = "<button><a href = '{0}{1}'>View Patient</a></button>" \
+        links = "<a href = '{0}{1}'>View Record</a>" \
             .format(query_url_for_record_data, obj.id)
 
         return format_html(links)
 
-    list_display = ['name', 'age', 'dob', 'gender', 'address', 'phone_number', 'patient_records']
+    def latest_patient_image(self, obj):
+
+        image = ImageBox.objects.filter(patient=obj).last().image
+        latest_image = '<img src="{0}" width="150"/>'.format(image.url)
+
+        links = "<a href = '{0}{1}'>{2}</a>".format('/PatientLedger/imagebox/?q=&patient_id=', obj.id, latest_image)
+
+        return format_html(links)
+
+    list_display = ['name', 'age', 'dob', 'gender', 'address', 'phone_number', 'patient_records', 'latest_patient_image']
     list_filter = ('gender', CityFilter)
     search_fields = ['name', 'phone_number']
 
