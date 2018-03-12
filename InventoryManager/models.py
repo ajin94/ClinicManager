@@ -1,6 +1,5 @@
 from django.core.exceptions import ValidationError
 from django.db import models
-from datetime import datetime
 from django.utils.translation import gettext_lazy as _
 from PatientLedger.models import Patient
 
@@ -10,30 +9,54 @@ class MedicalCompany(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return '%s' % self.name
+
 
 class Branding(models.Model):
-    name = models.CharField(max_length=250, unique=True, null=False, blank=False)
+    name = models.CharField(max_length=200, unique=True, null=False, blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return '%s' % self.name
+
+
+class MedicalRep(models.Model):
+    name = models.CharField(max_length=150, null=False, blank=False)
+    company_name = models.ForeignKey(MedicalCompany, null=False, blank=False, on_delete=models.DO_NOTHING)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ("name", "company_name")
+
+    def __str__(self):
+        return '{0}, {1}'.format(self.name, self.company_name)
 
 
 class Purchase(models.Model):
     medicine_name = models.CharField(max_length=250, null=False, blank=False)
-    company_name = models.ForeignKey(MedicalCompany, null=True, blank=True, on_delete=models.DO_NOTHING)
+    company_name = models.ForeignKey(MedicalCompany, null=False, blank=False, on_delete=models.DO_NOTHING)
     brand_name = models.ForeignKey(Branding, null=True, blank=True, on_delete=models.DO_NOTHING)
+    unit_price = models.PositiveIntegerField(null=False, blank=False)
     quantity = models.PositiveIntegerField(null=False, blank=False, default=1)
     expiry_date = models.DateField(null=False, blank=False)
+    invoice_amount = models.PositiveIntegerField(null=False, blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return '%s' % self.medicine_name
+
 
 class Sales(models.Model):
-    def validate_quantity(self):
-        item_quantity = int(Purchase.objects.get(id=self.item).quantity)
-        if self.quantity > item_quantity:
+    def validate_quantity(quantity):
+        item_quantity = 10
+        if quantity > item_quantity:
             raise ValidationError(
-                _("Quantity exceeded stock"),
-                params={'expiry_date', self.date}
+                _("Quantity exceeded stock, Available: {}".format(item_quantity)),
+                params={'quantity', quantity},
             )
 
     patient = models.ForeignKey(Patient, blank=False, null=True, on_delete=models.DO_NOTHING)
@@ -41,4 +64,7 @@ class Sales(models.Model):
     quantity = models.PositiveIntegerField(null=False, blank=False, validators=[validate_quantity])
     unit_price = models.PositiveIntegerField(null=False, blank=False, editable=False)
     total_price = models.PositiveIntegerField(null=False, blank=False, editable=False)
-    sale_date = models.DateField(auto_now_add=True)
+    sale_date = models.DateField(auto_now_add=True, editable=False)
+
+    class Meta:
+        verbose_name_plural = "Sales"
