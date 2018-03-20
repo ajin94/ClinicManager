@@ -1,7 +1,7 @@
-from django.core.exceptions import ValidationError
-from django.db import models
-from django.utils.translation import gettext_lazy as _
 from PatientLedger.models import Patient
+from django.db import models
+from django.db.models.signals import pre_save
+from .validators import validate_sales_quantity
 
 
 class MedicalCompany(models.Model):
@@ -55,7 +55,7 @@ class Purchase(models.Model):
 class Sales(models.Model):
     patient = models.ForeignKey(Patient, blank=False, null=True, on_delete=models.DO_NOTHING)
     item = models.ForeignKey(Purchase, null=False, blank=False, on_delete=models.DO_NOTHING)
-    quantity = models.PositiveIntegerField(null=False, blank=False)
+    quantity = models.PositiveIntegerField(null=False, blank=False, validators=[validate_sales_quantity])
     unit_price = models.PositiveIntegerField(null=False, blank=False, editable=False)
     total_price = models.PositiveIntegerField(null=False, blank=False, editable=False)
     sale_date = models.DateField(auto_now_add=True, editable=False)
@@ -63,7 +63,10 @@ class Sales(models.Model):
     class Meta:
         verbose_name_plural = "Sales"
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
 
-        if
+def make_sales(sender, **kwargs):
+    unit_price = Purchase.objects.get(id=kwargs['item_id']).unit_price
+    Sales.unit_price = unit_price
+    Sales.total_price = unit_price
+    Sales.save()
+pre_save.connect(make_sales, sender=Sales)

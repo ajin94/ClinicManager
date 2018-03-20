@@ -80,7 +80,7 @@ class AdminImageBox(admin.ModelAdmin):
     list_display = ['patient', 'image_tag', 'created_date', ]
 
 
-admin.site.site_title = "Admin"
+admin.site.site_title = "Patient Ledger"
 admin.site.site_header = "THE SKIN CLINIC"
 
 admin.site.register(Patient, AdminPatient)

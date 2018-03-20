@@ -29,3 +29,5 @@ admin.site.register(Sales, AdminSales)
 admin.site.register(Branding, AdminBranding)
 admin.site.register(MedicalCompany, AdminMedicalCompany)
 admin.site.register(MedicalRep, AdminMedicalRep)
+
+admin.site.site_title = "Inventory Management"
