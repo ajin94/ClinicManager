@@ -56,17 +56,16 @@ class Sales(models.Model):
     patient = models.ForeignKey(Patient, blank=False, null=True, on_delete=models.DO_NOTHING)
     item = models.ForeignKey(Purchase, null=False, blank=False, on_delete=models.DO_NOTHING)
     quantity = models.PositiveIntegerField(null=False, blank=False, validators=[validate_sales_quantity])
-    unit_price = models.PositiveIntegerField(null=False, blank=False, editable=False)
-    total_price = models.PositiveIntegerField(null=False, blank=False, editable=False)
+    unit_price = models.PositiveIntegerField(null=False, blank=True, editable=False)
+    total_price = models.PositiveIntegerField(null=False, blank=True, editable=False)
     sale_date = models.DateField(auto_now_add=True, editable=False)
 
     class Meta:
         verbose_name_plural = "Sales"
 
 
-def make_sales(sender, **kwargs):
-    unit_price = Purchase.objects.get(id=kwargs['item_id']).unit_price
-    Sales.unit_price = unit_price
-    Sales.total_price = unit_price
-    Sales.save()
+def make_sales(sender, instance, **kwargs):
+    instance.unit_price = 1
+    instance.total_price = 2
+
 pre_save.connect(make_sales, sender=Sales)

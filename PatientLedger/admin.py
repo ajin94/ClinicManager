@@ -48,13 +48,15 @@ class AdminPatient(admin.ModelAdmin):
         return format_html(links)
 
     def latest_patient_image(self, obj):
+        try:
+            image = ImageBox.objects.filter(patient=obj).last().image
+            latest_image = '<img src="{0}" width="150"/>'.format(image.url)
 
-        image = ImageBox.objects.filter(patient=obj).last().image
-        latest_image = '<img src="{0}" width="150"/>'.format(image.url)
+            links = "<a href = '{0}{1}'>{2}</a>".format('/PatientLedger/imagebox/?q=&patient_id=', obj.id, latest_image)
 
-        links = "<a href = '{0}{1}'>{2}</a>".format('/PatientLedger/imagebox/?q=&patient_id=', obj.id, latest_image)
-
-        return format_html(links)
+            return format_html(links)
+        except:
+            return None
 
     list_display = ['name', 'age', 'dob', 'gender', 'address', 'phone_number', 'patient_records', 'latest_patient_image']
     list_filter = ('gender', CityFilter)
