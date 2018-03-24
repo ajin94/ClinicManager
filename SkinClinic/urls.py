@@ -21,5 +21,5 @@ from django.urls.conf import include
 
 urlpatterns = [
     path('', admin.site.urls),
-    path('InventoryManager/', include('InventoryManager.urls'))
+    path('billing/', include('InventoryManager.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
