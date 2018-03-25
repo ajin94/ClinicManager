@@ -1,0 +1,27 @@
+{% block base_side_navigation %}
+<div class="top-bar" id="pharmacy-menu">
+    <div class="top-bar-left">
+        <ul class="menu" id="pharmacy-main-menu-custom-style">
+        {% if login_status == True %}
+            <li class="{% if page_name == 'index' %}active{% endif %}">
+                <a href="/pharmacy">INVENTORY</a>
+            </li>
+            <li><a href="#">Purchase</a></li>
+            <li><a href="#">Sales</a></li>
+            <li><a href="#">Billing</a></li>
+        {% else %}
+            <li class="active"><a href="/">PHARMACY</a></li>
+        {% endif %}
+        </ul>
+  </div>
+  <div class="top-bar-right">
+    <ul class="menu">
+        {% if login_status == True %}
+            <li><a href="#">Logout</a></li>
+            <li><input type="search" placeholder="Search"></li>
+            <li><button type="button" class="button">Search</button></li>
+        {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
