@@ -37,14 +37,14 @@
         <!--side nav-->
         {% include "InventoryManager/includes/main_nav.html" %}
     </div>
+    <!-- page breadcrumbs-->
+    <div class="row" id="give-padding-for-base-page-breadcrumbs">
+        {% block bread_crumbs %} {% endblock %}
+    </div>
     <!--main content for the site-->
     <div class="grid-container fluid">
-        <div class="grid-x">
-            <div class="cell medium-12 large-12">
-                <!--main body content-->
-                {%block content_main%} {% endblock %}
-            </div>
-        </div>
+        <!--main body content-->
+        {%block content_main%} {% endblock %}
     </div>
     <!--to add ending java scripts-->
     {% block js_footer %}

@@ -1,3 +1,18 @@
 #pharmacy-main-menu-custom-style li a{
     font-weight: bold !important;
 }
+
+#custom-breadcrumb-style li a{
+    font-size: 1rem !important;
+    color:white !important;
+}
+
+#give-padding-for-base-page-breadcrumbs{
+    padding: 30px 0 10px 20px !important;
+}
+
+#custom-breadcrumb-design{
+    background-color: #007cbc !important;
+    padding: 2px 10px 0px 10px !important;
+    border-radius: 3px !important;
+}
