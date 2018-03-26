@@ -1,7 +1,6 @@
 from PatientLedger.models import Patient
 from django.db import models
 from django.db.models.signals import pre_save
-from .validators import validate_sales_quantity
 
 
 class MedicalCompany(models.Model):
@@ -55,17 +54,10 @@ class Purchase(models.Model):
 class Sales(models.Model):
     patient = models.ForeignKey(Patient, blank=False, null=True, on_delete=models.DO_NOTHING)
     item = models.ForeignKey(Purchase, null=False, blank=False, on_delete=models.DO_NOTHING)
-    quantity = models.PositiveIntegerField(null=False, blank=False, validators=[validate_sales_quantity])
+    quantity = models.PositiveIntegerField(null=False, blank=False)
     unit_price = models.PositiveIntegerField(null=False, blank=True, editable=False)
     total_price = models.PositiveIntegerField(null=False, blank=True, editable=False)
     sale_date = models.DateField(auto_now_add=True, editable=False)
 
     class Meta:
         verbose_name_plural = "Sales"
-
-
-def make_sales(sender, instance, **kwargs):
-    instance.unit_price = 1
-    instance.total_price = 2
-
-pre_save.connect(make_sales, sender=Sales)

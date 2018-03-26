@@ -5,9 +5,7 @@ from django.shortcuts import render
 
 
 def pharmacy_index(request):
+    return render(request, 'InventoryManager/index.html', {"page_name": "index", "login_status": True})
 
-    # if request.session['login_status']:
-    #     return render(request, 'InventoryManager/index.html', {"page_name": "index"})
-    # else:
-    #     return HttpResponse("no session")
-    return render(request, 'InventoryManager/login.html', {"page_name": "index", "login_status": True})
+def pharmacy_billing(request):
+    return render(request, 'InventoryManager/billing.html', {"page_name": "billing", "login_status": True})
