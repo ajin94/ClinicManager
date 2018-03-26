@@ -20,6 +20,11 @@
     <div class="grid-x">
         <div class="cell large-offset-1">
             <h3>Generate New bill</h3>
+            <form action="/pharmacy/makesales" method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Generate Bill"/>
+            </form>
         </div>
     </div>
 {% endblock %}

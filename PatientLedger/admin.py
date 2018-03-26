@@ -58,13 +58,13 @@ class AdminPatient(admin.ModelAdmin):
         except:
             return None
 
-    list_display = ['name', 'age', 'dob', 'gender', 'address', 'phone_number', 'patient_records', 'latest_patient_image']
+    list_display = ['name', 'age', 'dob', 'gender', 'address', 'phone_number', 'patient_records',
+                    'latest_patient_image']
     list_filter = ('gender', CityFilter)
     search_fields = ['name', 'phone_number']
 
 
 class AdminPatientRecord(admin.ModelAdmin):
-
     list_display = ['patient', 'condition', 'medical_history', 'other_medicines', 'dermatology_treatment_history',
                     'dermatology_treatment_plan', 'prescription', 'next_review', 'consultation_fee', 'other_details']
 
