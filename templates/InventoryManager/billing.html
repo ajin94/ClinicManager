@@ -20,10 +20,13 @@
     <div class="grid-x">
         <div class="cell large-offset-1">
             <h3>Generate New bill</h3>
-            <form action="/pharmacy/makesales" method="POST">
-                {% csrf_token %}
-                {{ form }}
-                <input type="submit" value="Generate Bill"/>
+            <form action="/pharmacy/make-sales" method="POST">
+                <div class="cell auto">
+                    <label><h5>Patient Name: </h5></label>
+                    {{ form.patient }}
+                </div>
+                <input type="reset" value="Cancel" class="button warning"/>
+                <input type="submit" value="Make Bill" class="button"/>
             </form>
         </div>
     </div>
