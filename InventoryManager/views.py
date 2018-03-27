@@ -1,7 +1,7 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from .forms import BillingForm
-
+from datetime import date
 # Create your views here.
 
 
@@ -11,4 +11,4 @@ def pharmacy_index(request):
 def pharmacy_billing(request):
     billing_form = BillingForm()
     return render(request, 'InventoryManager/billing.html', {"page_name": "billing", "login_status": True,
-                                                             'form':billing_form})
+                                                             'form':billing_form, 'dated': date.today()})

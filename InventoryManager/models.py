@@ -57,7 +57,7 @@ class Sales(models.Model):
     quantity = models.PositiveIntegerField(null=False, blank=False)
     unit_price = models.PositiveIntegerField(null=False, blank=True)
     total_price = models.PositiveIntegerField(null=False, blank=True)
-    sale_date = models.DateField(auto_now_add=True, editable=False)
+    sale_date = models.DateField(auto_now_add=True, null=False)
 
     class Meta:
         verbose_name_plural = "Sales"
