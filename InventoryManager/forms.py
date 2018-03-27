@@ -1,6 +1,8 @@
 from django import forms
+from .models import Sales
 
 
-class BillingForm(forms.Form):
-    patient = forms.CharField(max_length=250)
-    date = forms.DateField()
+class BillingForm(forms.ModelForm):
+    class Meta:
+        model = Sales
+        fields = ('patient', 'item')

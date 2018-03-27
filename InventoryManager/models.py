@@ -55,8 +55,8 @@ class Sales(models.Model):
     patient = models.ForeignKey(Patient, blank=False, null=True, on_delete=models.DO_NOTHING)
     item = models.ForeignKey(Purchase, null=False, blank=False, on_delete=models.DO_NOTHING)
     quantity = models.PositiveIntegerField(null=False, blank=False)
-    unit_price = models.PositiveIntegerField(null=False, blank=True, editable=False)
-    total_price = models.PositiveIntegerField(null=False, blank=True, editable=False)
+    unit_price = models.PositiveIntegerField(null=False, blank=True)
+    total_price = models.PositiveIntegerField(null=False, blank=True)
     sale_date = models.DateField(auto_now_add=True, editable=False)
 
     class Meta:
