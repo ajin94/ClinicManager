@@ -11,9 +11,12 @@ class AdminBranding(admin.ModelAdmin):
 
 
 class AdminPurchase(admin.ModelAdmin):
-    inline = [AdminMedicalCompany]
     list_display = ['medicine_name', 'expiry_date', 'company_name', 'brand_name', 'quantity',
-                    'created_date', 'updated_date']
+                    'unit_price', 'invoice_amount', 'created_date', 'updated_date']
+
+
+class AdminMedicineName(admin.ModelAdmin):
+    list_display = ['name']
 
 
 class AdminMedicalRep(admin.ModelAdmin):
@@ -34,5 +37,6 @@ admin.site.register(Branding, AdminBranding)
 admin.site.register(MedicalCompany, AdminMedicalCompany)
 admin.site.register(MedicalRep, AdminMedicalRep)
 admin.site.register(Billing, AdminBilling)
+admin.site.register(MedicineName, AdminMedicineName)
 
 admin.site.site_title = "Inventory Management"

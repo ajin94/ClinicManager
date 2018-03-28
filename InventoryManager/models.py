@@ -1,6 +1,5 @@
 from PatientLedger.models import Patient
 from django.db import models
-from django.db.models.signals import pre_save
 
 
 class MedicalCompany(models.Model):
@@ -35,8 +34,26 @@ class MedicalRep(models.Model):
         return '{0}, {1}'.format(self.name, self.company_name)
 
 
+class MedicineName(models.Model):
+    name = models.CharField(max_length=250, null=False, blank=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return '{0}'.format(self.name)
+
+
+class Stock(models.Model):
+    medicine = models.ForeignKey(MedicineName, on_delete=models.DO_NOTHING)
+    company = models.ForeignKey(MedicalCompany, on_delete=models.DO_NOTHING)
+
+    class Meta:
+        unique_together = ["medicine", "company"]
+
+
 class Purchase(models.Model):
-    medicine_name = models.CharField(max_length=250, null=False, blank=False)
+    purchase_number = models.CharField(max_length=250, null=False, blank=False)
+    medicine_name = models.ForeignKey(MedicineName, null=False, blank=False, on_delete=models.DO_NOTHING)
     company_name = models.ForeignKey(MedicalCompany, null=False, blank=False, on_delete=models.DO_NOTHING)
     brand_name = models.ForeignKey(Branding, null=True, blank=True, on_delete=models.DO_NOTHING)
     representative_name = models.ForeignKey(MedicalRep, null=False, blank=False, on_delete=models.DO_NOTHING)
@@ -52,7 +69,7 @@ class Purchase(models.Model):
 
 
 class Sales(models.Model):
-    patient = models.ForeignKey(Patient, blank=False, null=True, on_delete=models.DO_NOTHING)
+    patient = models.ForeignKey(Patient, blank=True, null=True, on_delete=models.DO_NOTHING)
     item = models.ForeignKey(Purchase, null=False, blank=False, on_delete=models.DO_NOTHING)
     quantity = models.PositiveIntegerField(null=False, blank=False)
     unit_price = models.DecimalField(max_digits=12, decimal_places=5, null=False, blank=True)

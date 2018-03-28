@@ -13,16 +13,16 @@ $(document).ready(function(){
 
 function get_medicine_details_and_calculate(recieved_item_id){
     $.ajax({
-        type:'get',
-        url:'pharmacy/ajax/get_medicine_info/',
+        type:'GET',
+        url:'ajax/get_medicine_info/',
         data:{
-            'medicine_item_id': recieved_item_id
+            medicine_item_id: recieved_item_id
         },
         success:function(e){
-          alert("worked");
+          alert(e);
         },
-        error:function(){
-          alert(';error');
+        error:function(e){
+          alert("error");
         }
     });
 }
