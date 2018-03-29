@@ -46,13 +46,16 @@ class MedicineName(models.Model):
 class Stock(models.Model):
     medicine = models.ForeignKey(MedicineName, on_delete=models.DO_NOTHING)
     company = models.ForeignKey(MedicalCompany, on_delete=models.DO_NOTHING)
+    stock_available = models.PositiveIntegerField(null=False, blank=False, default=1)
+    unit_price = models.PositiveIntegerField(null=False, blank=False)
+    expiry_date = models.DateField(null=False)
 
     class Meta:
         unique_together = ["medicine", "company"]
 
 
 class Purchase(models.Model):
-    purchase_number = models.CharField(max_length=250, null=False, blank=False)
+    purchase_number = models.CharField(max_length=250, null=False, blank=False, unique=True)
     medicine_name = models.ForeignKey(MedicineName, null=False, blank=False, on_delete=models.DO_NOTHING)
     company_name = models.ForeignKey(MedicalCompany, null=False, blank=False, on_delete=models.DO_NOTHING)
     brand_name = models.ForeignKey(Branding, null=True, blank=True, on_delete=models.DO_NOTHING)
