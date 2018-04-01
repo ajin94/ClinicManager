@@ -22,3 +22,8 @@
 .top-margin-30{margin-top:30px !important;}
 .top-margin-20{margin-top:20px !important;}
 /*utils end*/
+
+/* purchase tabs */
+#purchase_tabs{ border: none !important;}
+#purchase_tabs_content{ border: none !important;}
+/* purchase page style end*/

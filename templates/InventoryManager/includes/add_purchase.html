@@ -1,0 +1,65 @@
+<div class="tabs-content" data-tabs-content="purchase_tabs" id="purchase_tabs_content">
+    <div class="tabs-panel is-active" id="purchase_insertions">
+        <div class="grid-x">
+            <div class="cell small-12 medium-12 large-12">
+                <h3><b>Purchase ID: {{ purchase_number }}</b></h3>
+                <form action="/pharmacy/make-sales" method="POST" class="top-margin-30">
+                    <div class="grid-x grid-margin-x">
+                        <div class="cell small-6 medium-4 large-3">
+                            <label><h5>Medical Rep: </h5></label>
+                            {{ form.medical_rep }}
+                        </div>
+                        <div class="cell small-6 medium-4 large-2 medium-offset-6 large-offset-7">
+                            <label><h5>Date & Time: </h5></label>
+                            <input type="text" value="{{dated}}" class="text-right" disabled="true"/>
+                        </div>
+                        <div class="cell small-12 medium-10 large-12 top-margin-30">
+                            <table class="hover">
+                                <thead>
+                                    <tr>
+                                        <th>Medicine Name</th>
+                                        <th>Company</th>
+                                        <th>Brand</th>
+                                        <th>Unit Price</th>
+                                        <th>Quantity</th>
+                                        <th>Expiry Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ form.medicine_name }}</td>
+                                        <td>{{ form.company_name }}</td>
+                                        <td>{{ form.brand_name }}</td>
+                                        <td>{{ form.unit_price }}</td>
+                                        <td>{{ form.quantity }}</td>
+                                        <td>{{ form.expiry_date }}</td>
+                                        <td>
+                                            <button class="button success small" type="button"
+                                                    disabled="true" id="add_medicine_to_table">
+                                                <i class="fi-plus"></i> &nbsp; Add
+                                            </button>
+                                            <button class="button secondary small" type="reset">
+                                                <i class="fi-refresh"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cell small-12 medium-12 large-11 text-right">
+                            <h5>
+                                <span id="final=label"><b>Total Invoice Amount:</b></span>
+                                <span id="final_amount">&nbsp;<b>0.0</b></span>
+                            </h5>
+                        </div>
+                        <div class="cell small-12 medium-12 large-11 text-right">
+                            <input type="reset" value="Cancel" class="button warning"/>
+                            <input type="submit" value="Bill & Print" class="button" disabled="true"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

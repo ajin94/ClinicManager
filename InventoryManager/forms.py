@@ -2,13 +2,21 @@ from django import forms
 from .models import Sales, Purchase
 
 
-class BillingForm(forms.ModelForm):
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
+class SalesBillingForm(forms.ModelForm):
     class Meta:
         model = Sales
-        fields = ('patient', 'item', 'quantity')
+        fields = ('item', 'quantity',)
 
 
-class PurchaseForm(forms.ModelForm):
+class PurchaseBillingForm(forms.ModelForm):
     class Meta:
         model = Purchase
-        fields = ('medicine_name',)
+        fields = ('medicine_name', 'medical_rep', 'company_name', 'brand_name',
+                  'unit_price', 'quantity', 'expiry_date')
+        widgets = {
+            'expiry_date': DateInput()
+        }

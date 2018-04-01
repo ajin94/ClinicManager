@@ -19,63 +19,52 @@
 {%block content_main%}
     <div class="grid-x">
         <div class="cell large-offset-2 small-11 medium-10 large-10">
-            <h3><b>Bill Number: {{ bill_number }}</b></h3>
-            <form action="/pharmacy/make-sales" method="POST" class="top-margin-30">
-                <div class="grid-x grid-margin-x">
-                    <div class="cell small-6 medium-4 large-3">
-                        <label><h5>Patient Name: </h5></label>
-                        {{ form.patient }}
-                    </div>
-                    <div class="cell small-6 medium-4 large-2 medium-offset-4 large-offset-4">
-                        <label><h5>Date & Time: </h5></label>
-                        <input type="text" value="{{dated}}" class="text-right" disabled="true"/>
-                    </div>
-                    <div class="cell small-12 medium-9 large-9">
-                        <table class="hover">
-                            <thead>
-                                <tr>
-                                    <th>Medicine Name</th>
-                                    <th>Quantity</th>
-                                    <th>Unit Price</th>
-                                    <th>Total Price</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{ form.item }}</td>
-                                    <td>{{ form.quantity}}</td>
-                                    <td>
-                                        <label id="display_unit_price_insertion"></label>
-                                    </td>
-                                    <td>
-                                        <label id="display_total_price-insertion"></label>
-                                    </td>
-                                    <td>
-                                        <button class="button success small" type="button"
-                                                disabled="true" id="add_medicine_to_table">
-                                            <i class="fi-plus"></i> &nbsp; Add
-                                        </button>
-                                        <button class="button secondary small" type="reset">
-                                            <i class="fi-refresh"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="cell small-12 medium-12 large-9 text-right">
-                        <h5>
-                            <span id="final=label"><b>Total Bill:</b></span>
-                            <span id="final_amount"><b></b></span>
-                        </h5>
-                    </div>
-                    <div class="cell small-12 medium-12 large-9 text-right">
-                        <input type="reset" value="Cancel" class="button warning"/>
-                        <input type="submit" value="Bill & Print" class="button"/>
-                    </div>
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-12 medium-9 large-9">
+                    <table class="hover">
+                        <thead>
+                            <tr>
+                                <th>Medicine Name</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Total Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ form.item }}</td>
+                                <td>{{ form.quantity}}</td>
+                                <td>
+                                    <label id="display_unit_price_insertion"></label>
+                                </td>
+                                <td>
+                                    <label id="display_total_price-insertion"></label>
+                                </td>
+                                <td>
+                                    <button class="button success small" type="button"
+                                            disabled="true" id="add_medicine_to_table">
+                                        <i class="fi-plus"></i> &nbsp; Add
+                                    </button>
+                                    <button class="button secondary small" type="reset">
+                                        <i class="fi-refresh"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </form>
+                <div class="cell small-12 medium-12 large-9 text-right">
+                    <h5>
+                        <span id="final=label"><b>Total Bill:</b></span>
+                        <span id="final_amount"><b></b></span>
+                    </h5>
+                </div>
+                <div class="cell small-12 medium-12 large-9 text-right">
+                    <input type="reset" value="Cancel" class="button warning"/>
+                    <input type="submit" value="Bill & Print" class="button"/>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
