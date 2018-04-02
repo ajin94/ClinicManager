@@ -2,7 +2,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 from .forms import PurchaseBillingForm
 from datetime import datetime
-from .models import Billing, Purchase
+from .models import Billing, Purchase, MedicalRep, MedicalCompany
 
 
 def pharmacy_index(request):
@@ -26,6 +26,10 @@ def get_medicine_info(request):
 def pharmacy_purchase(request):
     purchase_data_count = Purchase.objects.count()
     purchase_number = "SCPID#{0}".format(purchase_data_count + 1)
+    medical_rep_id = MedicalRep.objects.count()+1
+    medical_company_id = MedicalCompany.objects.count() + 1
     return render(request, 'InventoryManager/purchase.html', {"page_name": "purchase", 'dated': datetime.now(),
                                                               "login_status": True, "form": PurchaseBillingForm,
-                                                              "purchase_number": purchase_number})
+                                                              "purchase_number": purchase_number,
+                                                              "medical_rep_id": medical_rep_id,
+                                                              "medical_company_id":medical_company_id})
