@@ -16,7 +16,7 @@
 </div>
 {% endblock %}
 
-{%block content_main%}
+{% block content_main %}
     <div class="grid-x">
         <div class="cell large-offset-1 auto">
             <ul class="tabs" data-tabs id="purchase_tabs">
@@ -26,6 +26,7 @@
             </ul>
 
             {% include "InventoryManager/includes/add_purchase.html" %}
+            {% include "InventoryManager/includes/add_medical_rep.html" %}
         </div>
     </div>
 {% endblock %}

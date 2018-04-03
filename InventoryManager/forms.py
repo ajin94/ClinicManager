@@ -1,5 +1,5 @@
 from django import forms
-from .models import Sales, Purchase
+from .models import Sales, Purchase, MedicalRep
 
 
 class DateInput(forms.DateInput):

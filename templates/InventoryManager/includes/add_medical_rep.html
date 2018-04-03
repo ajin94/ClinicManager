@@ -1,14 +1,10 @@
-<div class="tabs-content" data-tabs-content="purchase_tabs" id="add_medical_rep">
-    <div class="tabs-panel is-active" id="purchase_insertions">
+<div class="tabs-content top-margin-30" data-tabs-content="purchase_tabs" id="medical_rep_tab_content">
+    <div class="tabs-panel" id="add_medical_rep">
         <div class="grid-x">
             <div class="cell small-12 medium-12 large-12">
                 <h3><b>Medical Rep. ID: {{ medical_rep_id }}</b></h3>
-                <form action="/pharmacy/make-sales" method="POST" class="top-margin-30">
+                <form action="/pharmacy/add_medical_rep" method="POST" class="top-margin-30">
                     <div class="grid-x grid-margin-x">
-                        <div class="cell small-6 medium-4 large-3">
-                            <label><h5>Medical Rep: </h5></label>
-                            {{ form.medical_rep }}
-                        </div>
                         <div class="cell small-6 medium-4 large-2 medium-offset-6 large-offset-7">
                             <label><h5>Date & Time: </h5></label>
                             <input type="text" value="{{dated}}" class="text-right" disabled="true"/>
@@ -17,12 +13,9 @@
                             <table class="hover">
                                 <thead>
                                     <tr>
-                                        <th>Medicine Name</th>
+                                        <th>Representative Name</th>
                                         <th>Company</th>
-                                        <th>Brand</th>
-                                        <th>Unit Price</th>
-                                        <th>Quantity</th>
-                                        <th>Expiry Date</th>
+                                        <th>Contact Number</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -31,9 +24,6 @@
                                         <td>{{ form.medicine_name }}</td>
                                         <td>{{ form.company_name }}</td>
                                         <td>{{ form.brand_name }}</td>
-                                        <td>{{ form.unit_price }}</td>
-                                        <td>{{ form.quantity }}</td>
-                                        <td>{{ form.expiry_date }}</td>
                                         <td>
                                             <button class="button success small" type="button"
                                                     disabled="true" id="add_medicine_to_table">
