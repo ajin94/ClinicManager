@@ -32,4 +32,4 @@ def pharmacy_purchase(request):
                                                               "login_status": True, "form": PurchaseBillingForm,
                                                               "purchase_number": purchase_number,
                                                               "medical_rep_id": medical_rep_id,
-                                                              "medical_company_id":medical_company_id})
+                                                              "medical_company_id": medical_company_id})
